@@ -1,0 +1,21 @@
+= form_for @barrel do |f|
+  - if @barrel.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@barrel.errors.count, "error")} prohibited this barrel from being saved:"
+      %ul
+        - @barrel.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :RFID
+    = f.text_field :RFID
+  .field
+    = f.label :container
+    = f.text_field :container
+  .field
+    = f.label :contents
+    = f.text_field :contents
+  .field
+    = f.label :gallons
+    = f.text_field :gallons
+  .actions
+    = f.submit 'Save'

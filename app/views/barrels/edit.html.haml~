@@ -1,0 +1,8 @@
+%h1 Editing barrel
+%p hello 
+%= @measurement.inspect
+= render 'form'
+
+= link_to 'Show', @barrel
+\|
+= link_to 'Back', barrels_path

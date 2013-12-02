@@ -1,0 +1,3 @@
+class Barrel < ActiveRecord::Base
+  attr_accessible :container, :contents, :gallons, :rfid
+end

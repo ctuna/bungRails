@@ -1,0 +1,85 @@
+class BarrelsController < ApplicationController
+  # GET /barrels
+  # GET /barrels.json
+  def index
+    @barrels = Barrel.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @barrels }
+    end
+  end
+
+  # GET /barrels/1
+  # GET /barrels/1.json
+  def show
+    @barrel = Barrel.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @barrel }
+    end
+  end
+
+  # GET /barrels/new
+  # GET /barrels/new.json
+  def new
+    @barrel = Barrel.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @barrel }
+    end
+  end
+
+  # GET /barrels/1/edit
+  def edit
+    @barrel = Barrel.find(params[:id])
+    @hello_message = "Welcome to JRuby on Rails on the Sun GlassFish Enterprise Server"
+    @measurement = params[:measurement]
+  end
+
+  # POST /barrels
+  # POST /barrels.json
+  def create
+    @barrel = Barrel.new(params[:barrel])
+
+    respond_to do |format|
+      if @barrel.save
+        format.html { redirect_to @barrel, notice: 'Barrel was successfully created.' }
+        format.json { render json: @barrel, status: :created, location: @barrel }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @barrel.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /barrels/1
+  # PUT /barrels/1.json
+  def update
+    @barrel = Barrel.where(rfid = params[:rfid]).first
+    respond_to do |format|
+      if (params[:gallons] && @barrel.update_attribute(:gallons, params[:gallons]) || @barrel.update_attributes(params[:barrel]))
+        format.html { redirect_to @barrel, notice: 'Barrel was successfully updated.' }
+        format.json { head :no_content }
+        
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @barrel.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /barrels/1
+  # DELETE /barrels/1.json
+  def destroy
+    @barrel = Barrel.find(params[:id])
+    @barrel.destroy
+
+    respond_to do |format|
+      format.html { redirect_to barrels_url }
+      format.json { head :no_content }
+    end
+  end
+end

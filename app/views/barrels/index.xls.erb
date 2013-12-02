@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">Container</Data></Cell>
+ 		<Cell><Data ss:Type="String">Contents</Data></Cell>
+        <Cell><Data ss:Type="String">Gallons</Data></Cell>
+      </Row>
+    <% @barrels.each do |barrel| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= barrel.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= barrel.container %></Data></Cell>
+  		<Cell><Data ss:Type="String"><%= barrel.contents %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= barrel.gallons %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

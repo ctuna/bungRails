@@ -1,0 +1,24 @@
+%h1 Listing barrels
+= link_to "Excel", barrels_path(format: "xls")
+
+%table
+  %tr
+    %th Container
+    %th Contents
+    %th Gallons
+    %th
+    %th
+    %th
+
+  - @barrels.each do |barrel|
+    %tr
+      %td= barrel.container
+      %td= barrel.contents
+      %td= barrel.gallons
+      %td= link_to 'Show', barrel
+      %td= link_to 'Edit', edit_barrel_path(barrel)
+      %td= link_to 'Destroy', barrel, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Barrel', new_barrel_path

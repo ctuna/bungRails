@@ -1,0 +1,19 @@
+%h1 Listing spirits
+
+%table
+  %tr
+    %th Type
+    %th
+    %th
+    %th
+
+  - @spirits.each do |spirit|
+    %tr
+      %td= spirit.name
+      %td= link_to 'Show', spirit
+      %td= link_to 'Edit', edit_spirit_path(spirit)
+      %td= link_to 'Destroy', spirit, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Spirit', new_spirit_path

@@ -1,6 +1,14 @@
 Bung::Application.routes.draw do
 
+  resources :comments
+
+  resources :readings
+
+  resources :spirits
+
   put 'barrels/receive(.:format)', :to => 'barrels#receive'
+  match 'barrels/history', :to=> 'barrels#history'
+  match 'barrels/resp', :to=> 'barrels#resp'
   resources :barrels
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,23 @@
+%h1 Listing readings
+
+%table
+  %tr
+    %th Date
+    %th Measurement
+    %th Liters
+    %th
+    %th
+    %th
+
+  - @readings.each do |reading|
+    %tr
+      %td= reading.date
+      %td= reading.measurement
+      %td= reading.liters
+      %td= link_to 'Show', reading
+      %td= link_to 'Edit', edit_reading_path(reading)
+      %td= link_to 'Destroy', reading, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Reading', new_reading_path

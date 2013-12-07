@@ -1,0 +1,3 @@
+class Reading < ActiveRecord::Base
+  attr_accessible :date, :liters, :measurement
+end

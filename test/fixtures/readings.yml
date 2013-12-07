@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2013-12-05 15:42:31
+  measurement: 1
+  liters: 1
+
+two:
+  date: 2013-12-05 15:42:31
+  measurement: 1
+  liters: 1

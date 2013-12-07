@@ -2,19 +2,30 @@ class BarrelsController < ApplicationController
   # GET /barrels
   # GET /barrels.json
   def index
-    @barrels = Barrel.order(:container)
+    @barrels = Barrel.all
+    #@barrel = Barrel.find(1)
+    #@spirits = @barrel.spirits
+    #@spirit = @barrel.spirits.order("id DESC").first
+    #@comments = Spirit.find(5).comments
 
 
     respond_to do |format|
+      
       format.html # index.html.erb
       #CSV code courtesy of: http://railscasts.com/episodes/362-exporting-csv-and-excel?view=asciicast
-      
       format.csv { send_data @barrels.to_csv }
       format.xls 
+      format.js 
       format.json { render json: @barrels }
     end
   end
-
+  
+  def history
+    @barrel = Barrel.find(params[:barrel])
+    @spirits = @barrel.spirits
+    respond_to :js
+  end
+  
   # GET /barrels/1
   # GET /barrels/1.json
   def show
@@ -63,16 +74,33 @@ class BarrelsController < ApplicationController
 
   # PUT /barrels/receive
   def receive
-   @barrel = Barrel.where(rfid = params[:rfid]).first
+   @barrel = Barrel.find(params[:id])
+   @spirit = @barrel.spirits.order("id DESC").first
+   @reading = @spirit.readings.create();
+   @reading.measurement = params[:reading]
+
+   #FORMULA GOES HERE
+   @reading.liters = @reading.measurement + 5;
+   @reading.date = @reading.created_at
+   @reading.save
+   #VISCO HERE
+   @num_cycles = 4
+   
     respond_to do |format|
-       if (params[:gallons] && @barrel.update_attribute(:gallons, params[:gallons]) || @barrel.update_attributes(params[:barrel]))
-         format.html { redirect_to @barrel, notice: 'Barrel was successfully updated.' }
-         format.json { head :no_content }
-       end
+      #math 
+       format.any { render :text => "$#{@num_cycles.to_s}!" }
+       #if (params[:gallons] && @barrel.update_attribute(:gallons, params[:gallons]) || @barrel.update_attributes(params[:barrel]))
+         #MESSAGE FOR ARDUINO
+        # format.any { render :text => "$#{@num_cycles.to_s}!" }
+         #format.json { head :no_content }
+       #end
      end
+   
    
   end
   
+  def resp
+  end
 
   # PUT /barrels/1
   # PUT /barrels/1.json
@@ -95,10 +123,7 @@ class BarrelsController < ApplicationController
   def destroy
     @barrel = Barrel.find(params[:id])
     @barrel.destroy
+    respond_to :js
 
-    respond_to do |format|
-      format.html { redirect_to barrels_url }
-      format.json { head :no_content }
-    end
   end
 end

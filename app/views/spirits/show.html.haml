@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Type:
+  = @spirit.name
+
+= link_to 'Edit', edit_spirit_path(@spirit)
+\|
+= link_to 'Back', spirits_path

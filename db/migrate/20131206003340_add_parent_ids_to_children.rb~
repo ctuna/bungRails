@@ -1,0 +1,4 @@
+class AddParentIdsToChildren < ActiveRecord::Migration
+  def change
+  end
+end

@@ -1,6 +1,9 @@
 class Barrel < ActiveRecord::Base
-  attr_accessible :container, :contents, :gallons, :RFID
+  attr_accessible :RFID, :name, :shape
   
+  has_many :spirits
+
+
   def self.to_csv(options = {})
       CSV.generate(options) do |csv|
         csv << column_names

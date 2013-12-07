@@ -1,3 +1,61 @@
 // Place all the styles related to the barrels controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$light-grey: #CFCFCF;
+$light-blue: #60A3C4;
+
+$wet-asphalt: #34495E;
+$midnight-blue: #2C3E50;
+$silver: #BDC3C7;
+$clouds: #ECF0F1;
+$asbestos: #7F8C8D;
+$belize-hole: #2980B9;
+$peter-river: #3498DB;
+
+
+$brown: #806F6F;
+
+$table-width: 600px;
+$padding: 20px;
+body{
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+.clickable{
+	background: $light-grey;
+	
+}
+h1{
+	color: $brown;
+	font-size: 120%;
+}
+#titles{
+	background: white;
+	
+}
+
+
+#author {
+	color: $light-blue;
+	font-size: 120%;
+}
+#comment{
+	font-weight: normal;
+	font-size: 100%;
+}
+#date{
+	font-weight: normal;
+	color: $light-grey;
+	font-size: 80%;
+}
+
+
+#left-side{
+	float:left;
+	width:$table-width;
+}
+
+#right-side{
+	margin-left:$table-width + $padding;
+
+}
+

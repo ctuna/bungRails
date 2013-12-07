@@ -1,0 +1,19 @@
+= form_for @reading do |f|
+  - if @reading.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@reading.errors.count, "error")} prohibited this reading from being saved:"
+      %ul
+        - @reading.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :date
+    = f.datetime_select :date
+  .field
+    = f.label :measurement
+    = f.number_field :measurement
+  .field
+    = f.label :liters
+    = f.number_field :liters
+  .actions
+    = f.submit 'Save'

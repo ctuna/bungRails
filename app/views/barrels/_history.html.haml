@@ -1,0 +1,10 @@
+%h1= "#{@barrel.name}: previous spirits" 
+
+- @spirits.each do |spirit|
+
+  %h1#author= spirit.name
+  %h1#date= spirit.created_at.to_date
+  -#= link_to 'Edit', edit_spirit_path(spirit)
+  -#= link_to '-', spirit, :method => :delete, :remote=>true
+
+%br

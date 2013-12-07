@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Date:
+  = @reading.date
+%p
+  %b Measurement:
+  = @reading.measurement
+%p
+  %b Liters:
+  = @reading.liters
+
+= link_to 'Edit', edit_reading_path(@reading)
+\|
+= link_to 'Back', readings_path

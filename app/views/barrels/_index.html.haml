@@ -1,0 +1,46 @@
+%div#indentation
+  %h1 barrels
+  = link_to "Excel", barrels_path(format: "xls")
+
+
+
+  %table#table
+    %tr{:id => "titles"}
+      %th Bung ID
+      %th Name
+      %th Type
+
+      %th Contents
+
+      %th Liters
+      %th Updated
+      %th
+      %th
+
+    - @barrels.each do |barrel|
+	
+      %tr{:class => "clickable"}
+        %td= barrel.RFID
+        %td= link_to "#{barrel.name}",  {:action=> :history, :barrel => barrel}, :remote => true  
+        %td= barrel.shape
+        - if barrel.spirits != []
+          %td= link_to"#{barrel.spirits.order("id DESC").first.name}",  {:controller=> :comments, :action=> :index, :barrel => barrel, :spirit => barrel.spirits.order("id DESC").first}, :remote => true 
+        - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
+          %td= barrel.spirits.order("id DESC").first.readings.order("id DESC").first.liters
+        - else 
+          %td
+        - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
+          %td= Time.zone.utc_to_local(barrel.spirits.order("id DESC").first.readings.order("id DESC").first.created_at)
+        - else 
+          %td
+        %td= link_to "+", :controller=> :spirits, :action=> :new, :barrel => barrel 
+        %td= link_to '-', barrel, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+
+        %td= link_to 'Edit', edit_barrel_path(barrel)
+
+
+  %br
+
+  = link_to 'New Barrel', new_barrel_path
+

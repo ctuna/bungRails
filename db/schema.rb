@@ -11,15 +11,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131201191853) do
+ActiveRecord::Schema.define(:version => 20131206003714) do
 
   create_table "barrels", :force => true do |t|
-    t.string   "container"
-    t.string   "contents"
-    t.decimal  "gallons"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "RFID"
+    t.string   "name"
+    t.string   "shape"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.datetime "date"
+    t.string   "author"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "spirit_id"
+  end
+
+  create_table "readings", :force => true do |t|
+    t.datetime "date"
+    t.integer  "measurement"
+    t.integer  "liters"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "spirit_id"
+  end
+
+  create_table "spirits", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "barrel_id"
+    t.string   "name"
   end
 
 end

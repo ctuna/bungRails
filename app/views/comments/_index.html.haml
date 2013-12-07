@@ -1,0 +1,22 @@
+%h1= "Comments For #{spirit.name}"
+
+%p#notice= notice
+%br
+= link_to 'New Comment', {:controller=> :comments, :action=>:new, :spirit=> spirit.id}, :remote=>true 
+
+
+
+- @comments.each do |comment|
+  %h2#author 
+    = "#{comment.author}:" 
+  %h2#comment 
+    = comment.content
+  %h2#date
+    =comment.created_at.to_date
+
+    = link_to 'Edit', edit_comment_path(comment), :remote=>true
+    = link_to 'Delete', comment, :method => :delete, :remote=>true
+
+%br
+
+%div#new_comment

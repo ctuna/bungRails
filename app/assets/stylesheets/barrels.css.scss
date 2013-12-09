@@ -2,31 +2,69 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $light-grey: #CFCFCF;
-$light-blue: #60A3C4;
+$rounding:5px;
 
 $wet-asphalt: #34495E;
 $midnight-blue: #2C3E50;
-$silver: #BDC3C7;
-$clouds: #ECF0F1;
-$asbestos: #7F8C8D;
-$belize-hole: #2980B9;
-$peter-river: #3498DB;
-
 
 $brown: #806F6F;
 
-$table-width: 600px;
+
+$seedgrain: #AB9387;
+$seed: #796B6A;
+$grain: #E5E1E0;
+$blueberry: #3D3B60;
+$berry: #7A314C;
+
 $padding: 20px;
+$button-width: 30px;
+
+a {
+background: none;
+}
 body{
+	text-align: left;
+	margin:0px;
+	border-radius:10px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
+#bar{
+	height:50px;
+	padding:$padding;
+	padding-top:$padding+20;
+	color:white;
+	width:100%;
+	background:$seedgrain;	
+}
+#headline{
+	font-size:500%;
+}
+#byline{
+	margin-left: 60px;
+	font-size:200%;
+	font-style: italic;
+	padding-bottom:20px;
+}
 .clickable{
-	background: $light-grey;
+
+	background: $grain;
 	
 }
+img{
+	opacity: .8;
+	height: $button-width;
+}
+.button{
+	width: $button-width;
+	background:white;
+}
 h1{
+	
+}
+.section{
 	color: $brown;
-	font-size: 120%;
+	font-size: 200%;
+	
 }
 #titles{
 	background: white;
@@ -35,7 +73,7 @@ h1{
 
 
 #author {
-	color: $light-blue;
+	color: $blueberry;
 	font-size: 120%;
 }
 #comment{
@@ -50,12 +88,89 @@ h1{
 
 
 #left-side{
-	float:left;
-	width:$table-width;
+
+
 }
 
 #right-side{
-	margin-left:$table-width + $padding;
 
+
+}
+
+:hover {
+	color: none;
+	background-color:none;
+    text-decoration: none;
+    opacity:1;
+
+  }
+td{
+		border-radius:$rounding;
+}
+.title{
+	color:$blueberry;
+	text-decoration:none;
+}
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.focusline {
+  fill: none;
+  stroke: #666666;
+  stroke-width: 1.5px;
+}
+
+.readingline {
+    fill: none;
+    stroke: white;
+    stroke-width: 0.75px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: #AAB6A2;
+  stroke-width: 1.5px;
+  stroke-opacity: 0.8;
+}
+
+.focus text {
+  font-size: 14px arial;
+}
+
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+}
+
+.title {
+    font: 20px arial;
+}
+
+.subtitle {
+    font: 14px helvetica;
 }
 

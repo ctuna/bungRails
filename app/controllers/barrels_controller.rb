@@ -2,6 +2,7 @@ class BarrelsController < ApplicationController
   # GET /barrels
   # GET /barrels.json
   def index
+ 
     @barrels = Barrel.all
     #@barrel = Barrel.find(1)
     #@spirits = @barrel.spirits
@@ -17,6 +18,21 @@ class BarrelsController < ApplicationController
       format.xls 
       format.js 
       format.json { render json: @barrels }
+    end
+  end
+  
+  def refresh
+    @barrels = Barrel.all
+    respond_to :js
+  end
+  
+  def vis
+
+    @readings = Spirit.find(11).readings;
+    respond_to do |format|
+      format.js 
+      format.html # index.html.erb
+      format.json { render :json => @readings.to_json }
     end
   end
   

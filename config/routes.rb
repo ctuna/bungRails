@@ -9,6 +9,9 @@ Bung::Application.routes.draw do
   put 'barrels/receive(.:format)', :to => 'barrels#receive'
   match 'barrels/history', :to=> 'barrels#history'
   match 'barrels/resp', :to=> 'barrels#resp'
+  match 'barrels/refresh', :to=>'barrels#refresh'
+  match 'barrels/vis', :to=>'barrels#vis'
+  match 'barrels/visdata', :to=>'barrels#vis', :format=>'json'
   resources :barrels
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -20,30 +20,30 @@
       %th
 
     - @barrels.each do |barrel|
-	
-      %tr{:class => "clickable"}
+      
+      %tr.clickable
+        #pretend
+          %td#left-edge= link_to "#{barrel.name}",  {:action=> :history, :barrel => barrel, :spirit => barrel.spirits.last}, :remote => true  
+          %td= barrel.RFID
+          %td= barrel.shape
+          - if barrel.spirits != []
+            %td= "#{barrel.spirits.order("id DESC").first.name}"
+          - else 
+            %td
+          - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
+            %td= barrel.spirits.last.readings.last.liters
+          - else 
+            %td
+          - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
+            %td#right-edge= Time.zone.utc_to_local(barrel.spirits.last.readings.last.created_at)
+          - else 
+            %td#right-edge
 
-        %td= link_to "#{barrel.name}",  {:action=> :history, :barrel => barrel, :spirit => barrel.spirits.last}, :remote => true  
-        %td= barrel.RFID
-        %td= barrel.shape
-        - if barrel.spirits != []
-          %td= "#{barrel.spirits.order("id DESC").first.name}"
-        - else 
-          %td
-        - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
-          %td= barrel.spirits.last.readings.last.liters
-        - else 
-          %td
-        - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
-          %td= Time.zone.utc_to_local(barrel.spirits.last.readings.last.created_at)
-        - else 
-          %td
-
-        %td.button= link_to image_tag( 'add.png'), :controller=> :spirits, :action=> :new, :barrel => barrel 
-        %td.button= link_to image_tag( 'delete.png'), barrel, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td.button= link_to image_tag( 'add.png'), :controller=> :spirits, :action=> :new, :barrel => barrel 
+          %td.button= link_to image_tag( 'delete.png'), barrel, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 
-        %td.button= link_to image_tag( 'edit.png'), edit_barrel_path(barrel)
+          %td.button= link_to image_tag( 'edit.png'), edit_barrel_path(barrel)
 
 
   %br

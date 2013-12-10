@@ -2,13 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $light-grey: #CFCFCF;
+$highlight-grey: #E6E6E6;
 $rounding:5px;
 
 $wet-asphalt: #34495E;
 $midnight-blue: #2C3E50;
-
+$related: 10px;
 $brown: #806F6F;
-
+$radius: 5px;
 
 $seedgrain: #AB9387;
 $seed: #796B6A;
@@ -47,8 +48,20 @@ body{
 }
 .clickable{
 
-	background: $light-grey;
-	
+	padding: 10px;
+	background: $light-grey;	
+}
+tr:hover{
+	background:$highlight-grey;
+	cursor:pointer;
+}
+#table{
+
+    border-spacing:0px $related;
+}
+td{
+
+	padding:5px 10px;
 }
 img{
 	opacity: .8;
@@ -88,15 +101,18 @@ h1{
 
 
 #left-side{
-
-
 }
 
 #right-side{
 
-
 }
 
+#left-edge{
+	border-radius:$radius 0px 0px $radius;
+}
+#right-edge{
+	border-radius:0px $radius $radius 0px;
+}
 :hover {
 	color: none;
 	background-color:none;
@@ -105,7 +121,7 @@ h1{
 
   }
 td{
-		border-radius:$rounding;
+	
 }
 .title{
 	color:$blueberry;

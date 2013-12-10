@@ -1,3 +1,6 @@
+
+
+
 function init(spiritId){
 
 	var margin = {top: 0, right: 100, bottom: 30, left: 25},

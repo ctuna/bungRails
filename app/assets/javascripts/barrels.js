@@ -1,6 +1,5 @@
 $(function () {
     $('.clickable').click(function () {
-	
 		$.ajax(
 		    {
 		      url:"/barrels/history",

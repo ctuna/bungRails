@@ -1,8 +1,9 @@
-function init(){
-	var margin = {top: 20, right: 100, bottom: 30, left: 50},
-	    width = 960 - margin.left - margin.right,
-	    height = 500 - margin.top - margin.bottom;
+function init(spiritId){
 
+	var margin = {top: 0, right: 100, bottom: 30, left: 25},
+	    width = 460 - margin.left - margin.right,//was 960
+	    height = 197 - margin.top - margin.bottom;//was 500
+	
 	var parseDate = d3.time.format("%Y-%m-%dT%X%Z").parse,
 	    bisectDate = d3.bisector(function(d) { return d.date; }).left,
 	    formatValue = d3.format(",.2f"),
@@ -27,13 +28,15 @@ function init(){
 	    .x(function(d) { return x(d.date); })
 	    .y(function(d) { return y(d.close); });
 
-	var svg = d3.select("body").append("svg")
+	var svg = d3.select("#vis").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	d3.json("visdata", function(error, data) {
+	
+	console.log("we're going to "+ ("/barrels/visdata?spirit="+spiritId))
+	d3.json(("/barrels/visdata?spirit="+spiritId), function(error, data) {
+		
 	  data.forEach(function(d) {
 	    d.date = new Date(Date.parse(d.updated_at));
 	    d.close = +d.liters;

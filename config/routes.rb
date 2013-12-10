@@ -11,7 +11,7 @@ Bung::Application.routes.draw do
   match 'barrels/resp', :to=> 'barrels#resp'
   match 'barrels/refresh', :to=>'barrels#refresh'
   match 'barrels/vis', :to=>'barrels#vis'
-  match 'barrels/visdata', :to=>'barrels#vis', :format=>'json'
+  match 'barrels/visdata(.:format)', :to=>'barrels#vis', :format=>'json'
   resources :barrels
   # The priority is based upon order of creation:
   # first created -> highest priority.

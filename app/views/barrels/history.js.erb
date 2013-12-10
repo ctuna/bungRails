@@ -1,2 +1,4 @@
 $('#history').empty().append('<%= j render 'history'%>')
+$('#comments').empty().append('<%= j render '/comments/index', spirit: @spirit %>')
 
+$('#vis').empty().append('<%= j render 'vis', spirit: @spirit%>')

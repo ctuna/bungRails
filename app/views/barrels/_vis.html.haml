@@ -1,4 +1,7 @@
-
+%h1.section= "#{spirit.name}: readings" 
+%select{:id=>"selector"}
+%br
+-print spirit.id
 %script{:type => 'text/javascript'}
   :plain
-    init();
+    init("#{spirit.id}");

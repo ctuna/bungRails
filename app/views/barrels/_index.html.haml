@@ -23,11 +23,13 @@
 	
       %tr{:class => "clickable"}
 
-        %td= link_to "#{barrel.name}",  {:action=> :history, :barrel => barrel}, :remote => true  
+        %td= link_to "#{barrel.name}",  {:action=> :history, :barrel => barrel, :spirit => barrel.spirits.last}, :remote => true  
         %td= barrel.RFID
         %td= barrel.shape
         - if barrel.spirits != []
-          %td= link_to"#{barrel.spirits.order("id DESC").first.name}",  {:controller=> :comments, :action=> :index, :barrel => barrel, :spirit => barrel.spirits.order("id DESC").first}, :remote => true 
+          %td= "#{barrel.spirits.order("id DESC").first.name}"
+        - else 
+          %td
         - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
           %td= barrel.spirits.last.readings.last.liters
         - else 

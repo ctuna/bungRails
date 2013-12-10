@@ -9,7 +9,7 @@ class BarrelsController < ApplicationController
     #@spirit = @barrel.spirits.order("id DESC").first
     #@comments = Spirit.find(5).comments
 
-
+   
     respond_to do |format|
       
       format.html # index.html.erb
@@ -27,8 +27,9 @@ class BarrelsController < ApplicationController
   end
   
   def vis
+    #needs readings 
+    @readings = Spirit.find(params[:spirit]).readings
 
-    @readings = Spirit.find(11).readings;
     respond_to do |format|
       format.js 
       format.html # index.html.erb
@@ -39,6 +40,10 @@ class BarrelsController < ApplicationController
   def history
     @barrel = Barrel.find(params[:barrel])
     @spirits = @barrel.spirits
+    @spirit = @spirits.last
+    @readings = @spirit.readings
+    
+    @comments = @spirit.comments
     respond_to :js
   end
   

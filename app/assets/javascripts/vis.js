@@ -1,52 +1,61 @@
 function init(spiritId){
 
-	var margin = {top: 0, right: 100, bottom: 30, left: 25},
+	var margin = {top: 10, right: 100, bottom: 30, left: 25},
 	    width = 460 - margin.left - margin.right,//was 960
 	    height = 197 - margin.top - margin.bottom;//was 500
 	
-	var parseDate = d3.time.format("%Y-%m-%dT%X%Z").parse,
-	    bisectDate = d3.bisector(function(d) { return d.date; }).left,
+var parseDate = d3.time.format("%Y-%m-%dT%X%Z").parse,
+	    bisectDate = d3.bisector(function(d) { return d.i; }).left,
 	    formatValue = d3.format(",.2f"),
 	    formatGal = function(d) { return formatValue(d) + " gal" }
 	    formatLtr = function(d) { return formatValue(d) + " ltr" };
 
-	var x = d3.time.scale()
+var x = //d3.time.scale()
+          d3.scale.linear()
 	    .range([0, width]);
 
-	var y = d3.scale.linear()
+var y = d3.scale.linear()
 	    .range([height, 0]);
 
-	var xAxis = d3.svg.axis()
+var xAxis = d3.svg.axis()
 	    .scale(x)
 	    .orient("bottom");
 
-	var yAxis = d3.svg.axis()
+var yAxis = d3.svg.axis()
 	    .scale(y)
 	    .orient("left");
 
-	var line = d3.svg.line()
-	    .x(function(d) { return x(d.date); })
+var line = d3.svg.line()
+	    .x(function(d) { return x(d.i); })
 	    .y(function(d) { return y(d.close); });
 
-	var svg = d3.select("#vis").append("svg")
+var svg = d3.select("#vis").append("svg")
+          //  d3.select("body").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
-	console.log("we're going to "+ ("/barrels/visdata?spirit="+spiritId))
-	d3.json(("/barrels/visdata?spirit="+spiritId), function(error, data) {
-		
-	  data.forEach(function(d) {
+d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
+//d3.tsv("data2.tsv", function(error, data) {
+	 var ticks = [];
+	  data.forEach(function(d,i) {
+
 	    d.date = new Date(Date.parse(d.updated_at));
 	    d.close = +d.liters;
+             //d.date = new Date(Date.parse(d.date));
+             //d.close = +d.close;
+             d.i = i;
+             ticks.push(d.date);
 	  });
 
 	  data.sort(function(a, b) {
 	    return a.date - b.date;
 	  });
 
-	  x.domain([data[0].date, data[data.length - 1].date]);
+	  //x.domain([data[0].date, data[data.length - 1].date]);
+          x.domain([0, data.length-1]);
+          //xAxis.tickValues(ticks);
 	  y.domain(d3.extent(data, function(d) { return d.close; }));
 
 	  svg.append("g")
@@ -58,23 +67,8 @@ function init(spiritId){
 	      .attr("class", "y axis")
 	      .call(yAxis);
 
-	  var title = svg.append("text")
-	      .attr("x", width/2);
-		
-	  var barrelTxt = "Barrel " + data[0].spirit_id;
-	
-	  title.append("tspan")
-	    .text(barrelTxt)
-	    .attr("class", "title");
-
-	  title.append("tspan")
-	     .attr("dx", (-barrelTxt.length*7))
-	     .attr("dy", 20)
-	     .text("Volume")
-	     .attr("class", "subtitle");
-
 	  var area = d3.svg.area()
-	    .x(function(d) { return x(d.date); })
+	    .x(function(d) { return x(d.i); })
 	    .y0(height)
 	    .y1(function(d) { return y(d.close); });
 
@@ -93,8 +87,8 @@ function init(spiritId){
 	  data.forEach( function(d) {
 	                    svg.append("line")
 	                    .attr("class", "readingline")
-	                    .attr("x1", x(d.date))
-	                    .attr("x2", x(d.date))
+	                    .attr("x1", x(d.i))
+	                    .attr("x2", x(d.i))
 	                    .attr("y1", (y(d.close)+1.5))
 	                    .attr("y2", height);
 	                    });
@@ -126,17 +120,19 @@ function init(spiritId){
 	        i = bisectDate(data, x0, 1),
 	        d0 = data[i - 1],
 	        d1 = data[i],
-	        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-	    focus.select("line").attr("x1", x(d.date));
-	    focus.select("line").attr("x2", x(d.date));
+	        d = x0 - d0.i > d1.i - x0 ? d1 : d0;
+            var dateStr = d.date.toString();
+            dateStr = dateStr.substring(0,dateStr.length-15); 
+	    focus.select("line").attr("x1", x(d.i));
+	    focus.select("line").attr("x2", x(d.i));
 	    focus.select("line").attr("y1", (y(d.close) + 4.2));
 	    focus.select("line").attr("y2", height);
-	    focus.select("text").attr("transform", "translate(" + x(d.date) +
+	    focus.select("text").attr("transform", "translate(" + x(d.i) +
 	    "," +  ( height - (height - y(d.close)) / 2 ) + ")");
 	    var txt = focus.select("text").text("");
 	    txt.append("tspan").text(formatLtr(d.close));
-	    txt.append("tspan").attr("x", 9).attr("dy", 15).text(d.date);
-	    focus.select("circle").attr("transform", "translate(" + x(d.date)
+	    txt.append("tspan").attr("x", 9).attr("dy", 15).text(dateStr);
+	    focus.select("circle").attr("transform", "translate(" + x(d.i)
 	    + "," + y(d.close) + ")");
 	  }
 	});

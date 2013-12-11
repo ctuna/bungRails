@@ -1,9 +1,6 @@
-
-
-
 function init(spiritId){
 
-	var margin = {top: 10, right: 100, bottom: 30, left: 25},
+var margin = {top: 10, right: 100, bottom: 30, left: 25},
 	    width = 460 - margin.left - margin.right,//was 960
 	    height = 197 - margin.top - margin.bottom;//was 500
 	
@@ -31,15 +28,19 @@ var line = d3.svg.line()
 	    .x(function(d) { return x(d.i); })
 	    .y(function(d) { return y(d.close); });
 
-var svg = d3.select("#vis").append("svg")
-          //  d3.select("body").append("svg")
+var vis = d3.select("#vis");
+
+var svg = vis.append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var div = vis.append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
 	
 d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
-//d3.tsv("data2.tsv", function(error, data) {
 	 var ticks = [];
 	  data.forEach(function(d,i) {
 
@@ -56,7 +57,7 @@ d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
 	  });
 
 	  //x.domain([data[0].date, data[data.length - 1].date]);
-    x.domain([0, data.length-1]);
+          x.domain([0, data.length-1]);
           xAxis.ticks(data.length).tickSubdivide(0);
 	  y.domain(d3.extent(data, function(d) { return d.close; }));
 
@@ -102,10 +103,6 @@ d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
 	  focus.append("line")
 	      .attr("class", "focusline");
 
-	  focus.append("text")
-	      .attr("x", 9)
-	      .attr("dy", ".35em");
-
 	  focus.append("circle")
 	      .attr("r", 5);
 
@@ -124,16 +121,15 @@ d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
 	        d1 = data[i],
 	        d = x0 - d0.i > d1.i - x0 ? d1 : d0;
             var dateStr = d.date.toString();
-            dateStr = dateStr.substring(0,dateStr.length-15); 
+            dateStr = dateStr.substring(0,dateStr.length-15);
 	    focus.select("line").attr("x1", x(d.i));
 	    focus.select("line").attr("x2", x(d.i));
 	    focus.select("line").attr("y1", (y(d.close) + 4.2));
 	    focus.select("line").attr("y2", height);
-	    focus.select("text").attr("transform", "translate(" + x(d.i) +
-	    "," +  ( height - (height - y(d.close)) / 2 ) + ")");
-	    var txt = focus.select("text").text("");
-	    txt.append("tspan").text(formatLtr(d.close));
-	    txt.append("tspan").attr("x", 9).attr("dy", 15).text(dateStr);
+	    div.style("left", (vis[0][0].offsetLeft + x(d.i)) + "px")
+	          .style("top",  (vis[0][0].offsetTop + height - (height - y(d.close)) / 2) + "px")
+	          .style("opacity", 0.9)
+		  .html("<strong>" + d.close + " liters</strong><br/>" + d.date.toString().substring(0, d.date.toString().length - 15) + "<br/>" );
 	    focus.select("circle").attr("transform", "translate(" + x(d.i)
 	    + "," + y(d.close) + ")");
 	  }

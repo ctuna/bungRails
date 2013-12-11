@@ -20,10 +20,10 @@
       %th
 
     - @barrels.each do |barrel|
-      
-      %tr.clickable
+  
+      %tr.clickable{:id=>"#{barrel.id}"}
         #pretend
-          %td#left-edge= link_to "#{barrel.name}",  {:action=> :history, :barrel => barrel, :spirit => barrel.spirits.last}, :remote => true  
+          %td#left-edge=  "#{barrel.name}"
           %td= barrel.RFID
           %td= barrel.shape
           - if barrel.spirits != []

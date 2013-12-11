@@ -56,8 +56,8 @@ d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
 	  });
 
 	  //x.domain([data[0].date, data[data.length - 1].date]);
-          x.domain([0, data.length-1]);
-          //xAxis.tickValues(ticks);
+    x.domain([0, data.length-1]);
+          xAxis.ticks(data.length).tickSubdivide(0);
 	  y.domain(d3.extent(data, function(d) { return d.close; }));
 
 	  svg.append("g")

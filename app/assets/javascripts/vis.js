@@ -10,8 +10,7 @@ var parseDate = d3.time.format("%Y-%m-%dT%X%Z").parse,
 	    formatGal = function(d) { return formatValue(d) + " gal" }
 	    formatLtr = function(d) { return formatValue(d) + " ltr" };
 
-var x = //d3.time.scale()
-          d3.scale.linear()
+var x = d3.scale.linear()
 	    .range([0, width]);
 
 var y = d3.scale.linear()

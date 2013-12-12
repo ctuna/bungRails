@@ -99,12 +99,21 @@ class BarrelsController < ApplicationController
    @spirit = @barrel.spirits.order("id DESC").first
    @reading = @spirit.readings.create();
    @reading.measurement = params[:reading]
+   
+   #HARD CODED LENGTH
+   @length = 36.6;
+   @r =  27.305/2;
+   @d = 2*@r;
+   @df= 2*@r - @reading.measurement;
+   #JUSTIN FORMULA GOES HERE
+   @centimeters = @length *((@r**2)*Math.acos((@r-@df)/@r) - ((@r-@df)*Math.sqrt(2*@r*@df-(@df**2))))
+   @reading.liters = @centimeters*0.001
 
-   #FORMULA GOES HERE
-   @reading.liters = @reading.measurement + 5;
-   @reading.date = @reading.created_at
+   #CUBIC CENTIMETERS -> LITERS
+   
+   @reading.timeOfDay= @reading.updated_at.strftime('%l:%M %p')
    @reading.save
-   #VISCO HERE
+   
    @num_cycles = 4
    
     respond_to do |format|

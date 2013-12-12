@@ -35,15 +35,15 @@
           - else 
             %td
           - if barrel.spirits != [] && barrel.spirits.order("id DESC").first.readings !=[]
-            %td#right-edge= Time.zone.utc_to_local(barrel.spirits.last.readings.last.created_at)
+            %td#right-edge= barrel.spirits.last.readings.last.updated_at.strftime('%l:%M %p')
           - else 
             %td#right-edge
 
-          %td.button= link_to image_tag( 'add.png'), :controller=> :spirits, :action=> :new, :barrel => barrel 
-          %td.button= link_to image_tag( 'delete.png'), barrel, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td.button#noclick= link_to image_tag( 'add.png'), :controller=> :spirits, :action=> :new, :barrel => barrel 
+          %td.button#noclick= link_to image_tag( 'delete.png'), barrel, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 
-          %td.button= link_to image_tag( 'edit.png'), edit_barrel_path(barrel)
+          %td.button#noclick= link_to image_tag( 'edit.png'), edit_barrel_path(barrel)
 
 
   %br

@@ -1,5 +1,5 @@
 class Barrel < ActiveRecord::Base
-  attr_accessible :RFID, :name, :type
+  attr_accessible :RFID, :name, :shape
   
   has_many :spirits
 

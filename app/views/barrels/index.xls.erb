@@ -10,14 +10,14 @@
         <Cell><Data ss:Type="String">ID</Data></Cell>
         <Cell><Data ss:Type="String">Container</Data></Cell>
  		<Cell><Data ss:Type="String">Contents</Data></Cell>
-        <Cell><Data ss:Type="String">Gallons</Data></Cell>
+        <Cell><Data ss:Type="String">Liters</Data></Cell>
       </Row>
     <% @barrels.each do |barrel| %>
       <Row>
         <Cell><Data ss:Type="Number"><%= barrel.id %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= barrel.container %></Data></Cell>
-  		<Cell><Data ss:Type="String"><%= barrel.contents %></Data></Cell>
-        <Cell><Data ss:Type="Number"><%= barrel.gallons %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= barrel.name %></Data></Cell>
+  		<Cell><Data ss:Type="String"><%= barrel.spirits.last.name %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= barrel.spirits.last.readings.last.liters %></Data></Cell>
       </Row>
     <% end %>
     </Table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131206003714) do
+ActiveRecord::Schema.define(:version => 20131212065427) do
 
   create_table "barrels", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -34,9 +34,10 @@ ActiveRecord::Schema.define(:version => 20131206003714) do
     t.datetime "date"
     t.integer  "measurement"
     t.integer  "liters"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "spirit_id"
+    t.string   "timeOfDay",   :limit => nil
   end
 
   create_table "spirits", :force => true do |t|

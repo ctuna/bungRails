@@ -22,6 +22,7 @@ class BarrelsController < ApplicationController
   end
   
   def refresh
+
     @barrels = Barrel.all
     respond_to :js
   end

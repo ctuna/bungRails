@@ -96,20 +96,24 @@ class BarrelsController < ApplicationController
 
   # PUT /barrels/receive
   def receive
-   @barrel = Barrel.find(params[:id])
+   #@barrel = Barrel.find(params[:id])
+   @barrel = Barrel.find(5)
    @spirit = @barrel.spirits.order("id DESC").first
    @reading = @spirit.readings.create();
-   @reading.measurement = params[:reading]
+   @reading.measurement = (params[:reading])
+   @reading.measurement =  @reading.measurement*2 
+
+   #5 liters reading is 7.98
+   #4 liters reading is 9.74
    
-   #HARD CODED LENGTH
-   @length = 36.6;
-   @r =  27.305/2;
+   
+   @length = 30.4;
+   @r =  27.15/2;
    @d = 2*@r;
    @df= 2*@r - @reading.measurement;
    #JUSTIN FORMULA GOES HERE
    @centimeters = @length *((@r**2)*Math.acos((@r-@df)/@r) - ((@r-@df)*Math.sqrt(2*@r*@df-(@df**2))))
-   @reading.liters = @centimeters*0.001
-
+   @reading.liters = (@centimeters*0.001).round(2) - 4
    #CUBIC CENTIMETERS -> LITERS
    
    @reading.timeOfDay= @reading.updated_at.strftime('%l:%M %p')

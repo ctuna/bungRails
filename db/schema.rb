@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212065427) do
+ActiveRecord::Schema.define(:version => 20131212220307) do
 
   create_table "barrels", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20131212065427) do
     t.string   "RFID"
     t.string   "name"
     t.string   "shape"
+    t.integer  "cycles"
   end
 
   create_table "comments", :force => true do |t|
@@ -32,19 +33,20 @@ ActiveRecord::Schema.define(:version => 20131212065427) do
 
   create_table "readings", :force => true do |t|
     t.datetime "date"
-    t.integer  "measurement"
-    t.integer  "liters"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "spirit_id"
-    t.string   "timeOfDay",   :limit => nil
+    t.string   "timeOfDay"
+    t.decimal  "liters"
+    t.decimal  "measurement"
   end
 
   create_table "spirits", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "barrel_id"
     t.string   "name"
+    t.decimal  "liters",     :precision => 2, :scale => 0
   end
 
 end

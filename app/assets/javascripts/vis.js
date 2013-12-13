@@ -58,7 +58,7 @@ d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
 
           //x.domain([data[0].date, data[data.length - 1].date]);
           x.domain([0, data.length-1]);
-          xAxis.ticks(data.length).tickSubdivide(0);
+          xAxis.ticks(0).tickSubdivide(0);
           y.domain( [0, d3.extent(data, function(d) { return d.close; })[1]]);
 	
 
@@ -111,8 +111,10 @@ d3.json(("/barrels/visdata?spirit="+spiritId), function(error,data){
               .attr("class", "overlay")
               .attr("width", width)
               .attr("height", height)
-              .on("mouseover", function() { focus.style("display", null); })
-              .on("mouseout", function() { focus.style("display", "none"); })
+              .on("mouseover", function() { focus.style("display", null);
+ 											div.style("display", null); })
+              .on("mouseout", function() { focus.style("display", "none");
+ 											div.style("display", "none"); })
               .on("mousemove", mousemove);
 
           function mousemove() {
